@@ -3,6 +3,24 @@
 <head>
 </head>
 <body>
-  <input type="file" accept="audio/*" />
+  <h1>Upload Audio Here</h1>
+  <form id="audioUpload">
+    <input type="file" accept="audio/*" required/>
+    <button type="submit">Transcribe</button>
+  </form>
+  <p id="transcript">Transcript will show here</p>
 </body>
+<script>
+  const audioUpload = document.getElementById("audioUpload");
+  audioUpload.addEventListener("submit", async (a) => {
+    a.preventDefault();
+    const audioData = new FormData(audioUpload);
+    const res = await fetch("/transcribe", {
+      method: "POST",
+      body: audioData
+    });
+    const trnscrData = await res.json();
+    document.getElementById("transcript").textContent = trnscrData.text || "Error.";
+  });
+</script>
 </html>
