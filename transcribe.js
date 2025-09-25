@@ -1,0 +1,33 @@
+import express from "express";
+import multer from "multer";
+import fetch from "node-fetch";
+import fs from "fs";
+import dotenv from "dotenv";
+
+dotenv.config();
+const app = express();
+const upload = multer({ dest: "uploads/" });
+app.post("/transcribe", upload.single("audio"), async (req, res) => {
+  try{
+    const fileStream = fs.createReadStream(req.file.path);
+    const response await fetch("https://api.openai.com/v1/audio/transcriptions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.evn.OPENAI_API_KEY}`
+      },
+      body: (() => {
+        const form = new FormData();
+        form.append("file", fileStream, req.file.originalname);
+        form.append("model", "whisper-1");
+        return form;
+      })()
+    });
+    const data = await response.json();
+    res.json({ text: data.text });
+    fs.unlinkSync(req.file.path);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Transcription failed." });
+  }
+});
+app.listen(3000, () => console.log("Server running on http://localhost:3000"));
