@@ -1,0 +1,17 @@
+{
+  "name": "mytranscribe",
+  "version": "1.0.0",
+  "main": "transcribe.js",
+  "scripts": {
+    "test": "node transcribe.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "multer": "^2.0.2",
+    "node-fetch": "^3.3.2"
+  }
+}
