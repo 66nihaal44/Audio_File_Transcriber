@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "transcribe.js",
   "scripts": {
-    "test": "node transcribe.js"
+    "start": "node transcribe.js"
   },
   "author": "",
   "license": "ISC",
