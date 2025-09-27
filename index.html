@@ -15,7 +15,7 @@
   audioUpload.addEventListener("submit", async (a) => {
     a.preventDefault();
     const audioData = new FormData(audioUpload);
-    const res = await fetch("https://audio-file-transcriber.onrender.com/", {
+    const res = await fetch("https://audio-file-transcriber.onrender.com/transcribe", {
       method: "POST",
       body: audioData
     });
