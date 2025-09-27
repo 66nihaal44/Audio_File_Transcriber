@@ -20,7 +20,6 @@ app.post("/transcribe", upload.single("file"), async (req, res) => {
       body: (() => {
         const form = new FormData();
         form.append("file", fileStream, req.file.originalname);
-        form.append("model", "whisper-1");
         return form;
       })()
     });
