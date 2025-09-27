@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 app.use(cors({ origin: "https://66nihaal44.github.io" }));
 const upload = multer({ dest: "uploads/" });
-app.post("/transcribe", upload.single("audio"), async (req, res) => {
+app.post("/transcribe", upload.single("file"), async (req, res) => {
   try{
     const fileStream = fs.createReadStream(req.file.path);
     const response = await fetch("https://api.openai.com/v1/audio/transcriptions", {
