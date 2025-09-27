@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import multer from "multer";
 import fetch from "node-fetch";
@@ -6,6 +7,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const app = express();
+app.use(cors({ origin: "https://66nihaal44.github.io" }));
 const upload = multer({ dest: "uploads/" });
 app.post("/transcribe", upload.single("audio"), async (req, res) => {
   try{
