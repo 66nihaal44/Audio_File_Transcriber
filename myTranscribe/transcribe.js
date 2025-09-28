@@ -12,13 +12,12 @@ const upload = multer({ dest: "uploads/" });
 app.post("/transcribe", upload.single("file"), async (req, res) => {
   try{
     const fileStream = fs.createReadStream(req.file.path);
-    const form = new FormData();
-    form.append("file", fileStream, req.file.originalname);
     const response = await fetch("http//localhost:5001", {
       method: "POST",
-      body: form,
-      headers: {
-        form.getHeaders();
+      body: (() => {
+        const form = new FormData();
+        form.append("file", fileStream, req.file.originalname);
+        return form;
       })()
     });
     const data = await response.json();
