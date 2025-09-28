@@ -14,5 +14,5 @@ def transcribe():
     result = model.transcribe(tmp.name)
   return jsonify({"text": result["text"]})
 if _name_ == "_main_":
-  app.run(host="0.0.0.0", port=3000)
+  app.run(host="0.0.0.0", port=5001)
   
