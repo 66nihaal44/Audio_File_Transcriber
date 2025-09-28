@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import whisper
 import tempfile
 
-app = Flash(_name_)
+app = Flash(__name__)
 model = whisper.load_model("base")
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
@@ -13,6 +13,6 @@ def transcribe():
     file.save(tmp.name)
     result = model.transcribe(tmp.name)
   return jsonify({"text": result["text"]})
-if _name_ == "_main_":
+if __name__ == "__main__":
   app.run(host="0.0.0.0", port=5001)
   
