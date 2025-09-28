@@ -19,6 +19,7 @@ app.post("/transcribe", upload.single("file"), async (req, res) => {
         form.append("file", fileStream, req.file.originalname);
         return form;
       },
+      // fix headers so it's blue
       headers: {
         form.getHeaders();
       })()
