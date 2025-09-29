@@ -13,7 +13,7 @@ app.post("/transcribe", upload.single("file"), async (req, res) => {
   try{
     const form = new FormData();
     form.append("file", fs.createReadStream(req.file.path));
-    const response = await fetch("http://127.0.0.1:5001", {
+    const response = await fetch("http://localhost:5001/transcribe", {
       method: "POST",
       body: form
     });
