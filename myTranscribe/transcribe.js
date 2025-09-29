@@ -11,14 +11,11 @@ app.use(cors({ origin: "https://66nihaal44.github.io" }));
 const upload = multer({ dest: "uploads/" });
 app.post("/transcribe", upload.single("file"), async (req, res) => {
   try{
-    const fileStream = fs.createReadStream(req.file.path);
+    const form = new FormData();
+    form.append("file", fs.createReadStream(req.file.path));
     const response = await fetch("http//localhost:5001", {
       method: "POST",
-      body: (() => {
-        const form = new FormData();
-        form.append("file", fileStream, req.file.originalname);
-        return form;
-      })()
+      body: form
     });
     const data = await response.json();
     res.json({ text: data.text });
