@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import whisper
 import tempfile
-
+import os
 app = Flask(__name__)
 model = whisper.load_model("tiny")
 @app.route("/transcribe", methods=["POST"])
