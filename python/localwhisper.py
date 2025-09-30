@@ -8,6 +8,7 @@ model = whisper.load_model("tiny")
 def transcribe():
   if "file" not in request.files:
     return jsonify({"error": "No file uploaded"}), 400
+  print("Files recieved: ", request.files);
   file = request.files["file"]
   with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
     file.save(tmp.name)
