@@ -4,7 +4,8 @@ import multer from "multer";
 import fetch from "node-fetch";
 import fs from "fs";
 import dotenv from "dotenv";
-
+import FormData from "form-data"
+  
 dotenv.config();
 const app = express();
 app.use(cors({ origin: "https://66nihaal44.github.io" }));
@@ -19,7 +20,8 @@ app.post("/transcribe", upload.single("file"), async (req, res) => {
     }
     const response = await fetch("https://audio-file-transcriber-python.onrender.com/transcribe", {
       method: "POST",
-      body: form
+      body: form,
+      headers: form.getHeaders()
     });
     const data = await response.json();
     res.json({ text: data.text });
