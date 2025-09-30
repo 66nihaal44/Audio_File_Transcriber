@@ -13,6 +13,10 @@ app.post("/transcribe", upload.single("file"), async (req, res) => {
   try{
     const form = new FormData();
     form.append("file", fs.createReadStream(req.file.path));
+    console.log("Printing form data:");
+    for(let [key, value] of form.entries()){
+      console.log(key, value);
+    }
     const response = await fetch("https://audio-file-transcriber-python.onrender.com/transcribe", {
       method: "POST",
       body: form
