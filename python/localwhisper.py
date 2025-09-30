@@ -3,7 +3,7 @@ import whisper
 import tempfile
 
 app = Flask(__name__)
-model = whisper.load_model("base")
+model = whisper.load_model("tiny")
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
   if "file" not in request.files:
