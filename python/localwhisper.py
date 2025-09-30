@@ -6,6 +6,8 @@ app = Flask(__name__)
 model = whisper.load_model("tiny")
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
+  print("Request.files.keys: ", request.files.keys())
+  print("Request.form.keys: ", request.form.keys())
   if "file" not in request.files:
     return jsonify({"error": "No file uploaded"}), 400
   print("Files recieved: ", request.files);
