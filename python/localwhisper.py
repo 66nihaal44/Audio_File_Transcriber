@@ -15,7 +15,6 @@ def transcribe():
   with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
     file.save(tmp.name)
     result = model.transcribe(tmp.name)
-  os.remove("temp_path")
   return jsonify({"text": result["text"]})
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5000))
