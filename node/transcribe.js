@@ -5,6 +5,7 @@ import fetch from "node-fetch";
 import fs from "fs";
 import dotenv from "dotenv";
 import FormData from "form-data"
+import {transcribe} from "whisper-node"
   
 dotenv.config();
 const app = express();
