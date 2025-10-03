@@ -19,7 +19,7 @@
     for(let [key, value] of audioData.entries()){
       console.log(key, value);
     }
-    const res = await fetch("http://127.0.0.1:5001/transcribe", {
+    const res = await fetch("https://deana-cracked-aditya.ngrok-free.dev/transcribe", {
       method: "POST",
       body: audioData
     });
