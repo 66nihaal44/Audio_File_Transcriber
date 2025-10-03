@@ -1,3 +1,3 @@
 Link at [Audio_File_Transcriber](https://66nihaal44.github.io/Audio_File_Transcriber/index)<br>
 Uses fast-whisper python module<br>
-Plan: add sentiment analysis
+Plan: Add symbol to indicate transcription is loading && add sentiment analysis
