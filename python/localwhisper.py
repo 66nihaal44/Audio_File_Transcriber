@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify
-import whisper
+from flask_cors import CORS
+import faster_whisper import WhisperModel 
 import tempfile
 import os
-from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "https://66nihaal44.github.io"}})
-model = whisper.load_model("tiny")
+model = WhisperModel("base", device="cpu", comput_type="int8")
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
   print("Request.files.keys: ", request.files.keys())
@@ -16,8 +16,9 @@ def transcribe():
   file = request.files["file"]
   with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
     file.save(tmp.name)
-    result = model.transcribe(tmp.name)
-  return jsonify({"text": result["text"]})
+    segments, info = model.transcribe(tmp.name, beam_size=5)
+  text = " ".join([segment.text for segment in segments])
+  return jsonify({"text": "text"})
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5000))
   app.run(host="0.0.0.0", port=port)
