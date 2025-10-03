@@ -18,7 +18,7 @@ def transcribe():
     file.save(tmp.name)
     segments, info = model.transcribe(tmp.name, beam_size=5)
   text = " ".join([segment.text for segment in segments])
-  return jsonify({"text": "text"})
+  return jsonify({"text": text})
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5000))
   app.run(host="0.0.0.0", port=port)
