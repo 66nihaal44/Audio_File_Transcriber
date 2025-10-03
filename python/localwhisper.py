@@ -2,7 +2,9 @@ from flask import Flask, request, jsonify
 import whisper
 import tempfile
 import os
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "https://66nihaal44.github.io"}})
 model = whisper.load_model("tiny")
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
@@ -17,6 +19,6 @@ def transcribe():
     result = model.transcribe(tmp.name)
   return jsonify({"text": result["text"]})
 if __name__ == "__main__":
-  #port = int(os.environ.get("PORT", 5000))
-  app.run(host="0.0.0.0", port=5001)
+  port = int(os.environ.get("PORT", 5000))
+  app.run(host="0.0.0.0", port=port)
   
