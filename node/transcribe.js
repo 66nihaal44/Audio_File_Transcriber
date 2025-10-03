@@ -13,7 +13,11 @@ app.use(cors({ origin: "https://66nihaal44.github.io" }));
 const upload = multer({ dest: "uploads/" });
 app.post("/transcribe", upload.single("file"), async (req, res) => {
   try{
-    const form = new FormData();
+    const result = await transcribe(req.file.path.value, {
+      model: "base",
+      language: "en"
+    });
+    /*const form = new FormData();
     form.append("file", fs.createReadStream(req.file.path));
     console.log("Printing form data:");
     for(let [key, value] of form.entries()){
@@ -29,7 +33,7 @@ app.post("/transcribe", upload.single("file"), async (req, res) => {
     fs.unlinkSync(req.file.path);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Transcription failed." });
+    res.status(500).json({ error: "Transcription failed." });*/
   }
 });
 app.listen(3000, () => console.log("Server running on http://localhost:3000"));
