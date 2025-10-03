@@ -5,7 +5,7 @@ import tempfile
 import os
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "https://66nihaal44.github.io"}})
-model = WhisperModel("base", device="cpu", comput_type="int8")
+model = WhisperModel("base", device="cpu", compute_type="int8")
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
   print("Request.files.keys: ", request.files.keys())
