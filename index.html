@@ -38,7 +38,7 @@
         throw new Error(`HTTP error ${res.status}`);
       }
       const trnscrData = await res.json();
-      (!trnscrData.text){
+      if(!trnscrData.text){
         throw new Error("No transcription recieved");
       }
       transcript.textContent = trnscrData.text;
