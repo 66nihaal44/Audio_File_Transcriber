@@ -14,16 +14,18 @@
   <h1>Upload Audio Here</h1>
   <form id="audioUpload">
     <input type="file" name="file" accept="audio/*" required/>
-    <button type="submit">Transcribe</button>
+    <button id="button" type="submit">Transcribe</button>
   </form>
   <p id="transcript">Transcript shows here.</p>
 </body>
 <script>
   const audioUpload = document.getElementById("audioUpload");
   const transcript = document.getElementById("transcript");
+  const button = document.getElementById("button");
   audioUpload.addEventListener("submit", async (a) => {
     a.preventDefault();
     transcript.textContent = "Transcribing...";
+    button.disabled = true;
     const audioData = new FormData(audioUpload);
     console.log("Printing form data:");
     for(let [key, value] of audioData.entries()){
@@ -47,6 +49,7 @@
       console.error("Error during transcription: ", err);
       transcript.textContent = "Error.";
     }
+    button.disabled = false;
   });
 </script>
 </html>
