@@ -16,7 +16,7 @@ def transcribe():
   file = request.files["file"]
   with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
     file.save(tmp.name)
-    segments, info = model.transcribe(tmp.name, beam_size=5)
+    segments, info = model.transcribe(tmp.name, beam_size=5, language="en")
   text = " ".join([segment.text for segment in segments])
   return jsonify({"text": text})
 if __name__ == "__main__":
