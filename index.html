@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,19 +20,33 @@
 </body>
 <script>
   const audioUpload = document.getElementById("audioUpload");
+  const transcript = document.getElementById("transcript");
   audioUpload.addEventListener("submit", async (a) => {
     a.preventDefault();
+    transcript.textContent = "Transcribing...";
     const audioData = new FormData(audioUpload);
     console.log("Printing form data:");
     for(let [key, value] of audioData.entries()){
       console.log(key, value);
     }
-    const res = await fetch("https://audio-file-transcriber-python.onrender.com/transcribe", {
-      method: "POST",
-      body: audioData
-    });
-    const trnscrData = await res.json();
-    document.getElementById("transcript").textContent = trnscrData.text || "Error.";
+    try {
+      const res = await fetch("https://audio-file-transcriber-python.onrender.com/transcribe", {
+        method: "POST",
+        body: audioData
+      });
+      if(!res.ok){
+        throw new Error(`HTTP error ${res.status}`);
+      }
+      const trnscrData = await res.json();
+      (!trnscrData.text){
+        throw new Error("No transcription recieved");
+      }
+      transcript.textContent = trnscrData.text;
+    }
+    catch(err){
+      console.error("Error during transcription: ", err);
+      transcript.textContent = "Error.";
+    }
   });
 </script>
 </html>
