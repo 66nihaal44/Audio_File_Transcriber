@@ -1,30 +1,96 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Audio File Transcriber</title>
   <style>
     body {
-      background-color: black;
+      background-color: #404040;
       color: white;
       font-family: arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: darkgrey;
+      padding: 2rem 3rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,1);
+      width: 400px;
+      text-align: center;
+    }
+    h1{
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: blue;
+    }
+    form{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input[type="file"]{
+      border: 2px dashed grey;
+      padding: 1.2rem;
+      border-radius: 10px;
+      background-color: white;
+      cursor: pointer;
+    }
+    button{
+      background-color: blue;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    button:hover{
+      background-color: lightblue;
+    }
+    button:disabled{
+      background-color: grey;
+      cursor: default;
+    }
+    #transcript{
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border: 1px solid darkgrey;
+      border-radius: 8px;
+      background-color: white;
+      color: black;
+      min-height: 80px;
+      white-space: pre-wrap;
+      text-align: left;
+    }
+    .loading{
+      color: lightgrey;
+    }
+    .error{
+      color: red;
     }
   </style>
 </head>
 <body>
-  <h1>Upload Audio Here</h1>
-  <form id="audioUpload">
-    <input type="file" name="file" accept="audio/*" required/>
-    <button id="button" type="submit">Transcribe</button>
-  </form>
-  <p id="transcript">Transcript shows here.</p>
+  <div class="container">
+    <h1>Upload Audio Here</h1>
+    <form id="audioUpload">
+      <input type="file" name="file" accept="audio/*" required />
+      <button type="submit">Transcribe</button>
+    </form>
+    <div id="transcript">Transcript shows here.</div>
+  </div>
 </body>
 <script>
   const audioUpload = document.getElementById("audioUpload");
   const transcript = document.getElementById("transcript");
-  const button = document.getElementById("button");
+  const button = document.getElementsByTagName("button")[0];
   audioUpload.addEventListener("submit", async (a) => {
     a.preventDefault();
+    transcript.className = "loading";
     transcript.textContent = "Transcribing...";
     button.disabled = true;
     const audioData = new FormData(audioUpload);
@@ -44,10 +110,12 @@
       if(!trnscrData.text){
         throw new Error("No transcription recieved");
       }
+      transcript.className = "";
       transcript.textContent = trnscrData.text;
     }
     catch(err){
       console.error("Error during transcription: ", err);
+      transcript.className = "error";
       transcript.textContent = "Error.";
     }
     button.disabled = false;
