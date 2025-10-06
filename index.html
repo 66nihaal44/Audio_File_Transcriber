@@ -121,7 +121,7 @@
       transcript.textContent = trnscrData.text;
     }
     catch(err){
-      console.error("Error during transcription: ", err);
+      console.error("Error during transcription: ", err.message);
       transcript.className = "error";
       transcript.textContent = "Error.";
     }
