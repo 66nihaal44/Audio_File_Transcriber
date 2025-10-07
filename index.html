@@ -123,7 +123,7 @@
     catch(err){
       console.error("Error during transcription: ", err.message);
       transcript.className = "error";
-      transcript.textContent = "Error.";
+      transcript.textContent = `${err.message || "Unknown error"}`;
     }
     button.disabled = false;
   });
