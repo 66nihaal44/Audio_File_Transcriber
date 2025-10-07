@@ -92,9 +92,9 @@
       a.preventDefault();
       const fileInput = document.querySelector('input[type="file"]');
       const maxSizeMB = 2;
-      if(fileInput.files[0].size > maxSize * 1024 * 1024){
+      if(fileInput.files[0].size > maxSizeMB * 1024 * 1024){
         transcript.className = "error";
-        transcript.textContent = `File too large (max accepted size: ${maxSize} MB)`;
+        transcript.textContent = `File too large (max accepted size: ${maxSizeMB} MB)`;
         return;
       }
       transcript.className = "loading";
