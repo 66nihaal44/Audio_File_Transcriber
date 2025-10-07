@@ -111,7 +111,7 @@
           body: audioData
         });
         if(!res.ok){
-          const backendData = await res.json() || {}; // await res.json().catch(() => ({}));
+          const backendData = await res.json().catch(() => ({}));
           throw new Error(backendData.error || `HTTP error ${res.status}`);
         }
         const trnscrData = await res.json();
