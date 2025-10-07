@@ -89,6 +89,7 @@
     const transcript = document.getElementById("transcript");
     const button = document.getElementsByTagName("button")[0];
     audioUpload.addEventListener("submit", async (a) => {
+      a.preventDefault();
       const fileInput = document.querySelector('input[type="file"]');
       const maxSizeMB = 2;
       if(fileInput.files[0].size > maxSize * 1024 * 1024){
@@ -96,7 +97,6 @@
         transcript.textContent = `File too large (max accepted size: ${maxSize} MB)`;
         return;
       }
-      a.preventDefault();
       transcript.className = "loading";
       transcript.textContent = "Transcribing...";
       button.disabled = true;
