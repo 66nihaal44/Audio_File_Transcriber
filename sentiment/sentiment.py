@@ -7,6 +7,7 @@ CORS(app)
 sentModel = pipeline("sentiment-analysis")
 @app.route("/analyze", methods=["POST"])
 def analyze_sentiment(text):
+  # add request for file here
   result = sentModel(text)[0]
   return {
     "label": result["label"],
