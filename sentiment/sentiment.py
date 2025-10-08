@@ -4,5 +4,5 @@ def analyze_sentiment(text):
   result = sentModel(text)[0]
   return {
     "label": result["label"],
-    "score": round(result["score", 3)
+    "score": round(result["score"], 3)
   }
