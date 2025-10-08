@@ -24,7 +24,7 @@ def transcribe():
       segments, info = model.transcribe(tmp.name, beam_size=5, language="en")
     text = " ".join([segment.text for segment in segments])
     sentimentResponse = requests.post(
-      "websitename",
+      "https://audio-file-transcriber-sentiment.onrender.com/analyze",
       json={"text": text}
     )
     if sentimentResponse.ok:
