@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from faster_whisper import WhisperModel 
+from faster_whisper import WhisperModel
+import requests
 import tempfile
 import os
 app = Flask(__name__)
@@ -22,7 +23,15 @@ def transcribe():
       file.save(tmp.name)
       segments, info = model.transcribe(tmp.name, beam_size=5, language="en")
     text = " ".join([segment.text for segment in segments])
-    return jsonify({"text": text})
+    sentimentResponse = requests.post(
+      "websitename",
+      json={"text": text}
+    )
+    if sentimentResponse.ok:
+      sentiment = sentimentResponse.json().get("sentiment")
+    else:
+      sentiment = "Error analyzing sentiment"
+    return jsonify({"text": text, "sentiment": sentiment})
   except MemoryError:
     return jsonify({"error": "Server ran out of memory."}), 500
   except Exception as e:
