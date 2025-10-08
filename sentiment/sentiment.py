@@ -1,4 +1,8 @@
+from flask import Flask
+from flask_cors import CORS
 from transformers import pipeline
+app = Flask(__name__)
+CORS(app)
 sentModel = pipeline("sentiment-analysis")
 @app.route("/analyze", methods=["POST"])
 def analyze_sentiment(text):
