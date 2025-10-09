@@ -1,15 +1,25 @@
 from flask import Flask, request
 from flask_cors import CORS
 import torch
+import tempfile
 import os
 from transformers import pipeline
 app = Flask(__name__)
 CORS(app)
 sentModel = pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")
 @app.route("/analyze", methods=["POST"])
-def analyze_sentiment(text):
-  # add request for file here
-  result = sentModel(text)[0]
+def analyze_sentiment():
+  if "file" not in request.files:
+    return jsonify({"error": "No file uploaded"}), 400
+  print("Files recieved: ", request.files);
+  try:
+    file = request.files["file"]
+    if len(file.read()) > 5 * 1024 * 1024:
+      return jsonify({"error": "File too large"}), 400
+    file.seek(0);
+    with tempfile.NamedTemporaryFile(delete=False) as tmp:
+      file.save(tmp.name)
+      result = sentModel(text)[0]
   return {
     "label": result["label"],
     "score": round(result["score"], 3)
