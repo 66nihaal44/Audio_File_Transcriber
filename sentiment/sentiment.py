@@ -5,7 +5,7 @@ import os
 from transformers import pipeline
 app = Flask(__name__)
 CORS(app)
-sentModel = pipeline("sentiment-analysis")
+sentModel = pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")
 @app.route("/analyze", methods=["POST"])
 def analyze_sentiment(text):
   # add request for file here
