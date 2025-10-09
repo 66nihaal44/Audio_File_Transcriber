@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 import torch
+import os
 from transformers import pipeline
 app = Flask(__name__)
 CORS(app)
