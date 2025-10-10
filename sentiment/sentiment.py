@@ -1,12 +1,10 @@
 from flask import Flask, request
 from flask_cors import CORS
-import torch
-import tempfile
-import os
-from transformers import pipeline
+import requests, tempfile, os
 app = Flask(__name__)
 CORS(app)
-sentModel = pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")
+HF_API_TOKEN = os.getenv("HF_API_TOKEN")
+API = "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english"
 @app.route("/analyze", methods=["POST"])
 def analyze_sentiment():
   if "file" not in request.files:
