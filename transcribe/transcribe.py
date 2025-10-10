@@ -25,14 +25,13 @@ def transcribe():
     text = " ".join([segment.text for segment in segments])
     try:
       sentimentResponse = requests.post(
-      "https://audio-file-transcriber-sentiment.onrender.com/analyze",
-      header={"Authorization": f"Bearer {HF_API_TOKEN}"}
-      json={"text": text}
+        "https://audio-file-transcriber-sentiment.onrender.com/analyze",
+        headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
+        json={"text": text}
       )
-      if sentimentResponse.ok:
-        sentiment = sentimentResponse.json().get("sentiment")
-      else:
-        sentiment = "Error analyzing sentiment"
+      sentiment = sentimentResponse.json()
+    except Exception as e:
+      
     print(text, sentiment)
     return jsonify({"text": text, "sentiment": sentiment})
   except MemoryError:
