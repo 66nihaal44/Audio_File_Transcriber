@@ -14,8 +14,8 @@ def analyze_sentiment():
     with tempfile.NamedTemporaryFile(delete=False) as tmp:
       file.save(tmp.name)
       result = requests.post("https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english"),
-      headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
-      json={"inputs": tmp.name}
+        headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
+        json={"inputs": tmp.name}
   return {
     "label": result["label"],
     "score": round(result["score"], 3)
