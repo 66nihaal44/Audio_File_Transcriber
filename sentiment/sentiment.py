@@ -4,7 +4,6 @@ import requests, tempfile, os
 app = Flask(__name__)
 CORS(app)
 HF_API_TOKEN = os.getenv("HF_API_TOKEN")
-API = "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english"
 @app.route("/analyze", methods=["POST"])
 def analyze_sentiment():
   if "file" not in request.files:
@@ -12,12 +11,11 @@ def analyze_sentiment():
   print("Files recieved: ", request.files);
   try:
     file = request.files["file"]
-    if len(file.read()) > 5 * 1024 * 1024:
-      return jsonify({"error": "File too large"}), 400
-    file.seek(0);
     with tempfile.NamedTemporaryFile(delete=False) as tmp:
       file.save(tmp.name)
-      result = sentModel(text)[0]
+      result = requests.post("https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
+                    headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
+                    json={"inputs": tmp.name}
   return {
     "label": result["label"],
     "score": round(result["score"], 3)
