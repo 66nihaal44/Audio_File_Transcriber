@@ -31,7 +31,8 @@ def transcribe():
       )
       sentiment = sentimentResponse.json()
     except Exception as e:
-      
+      print("Sentiment analysis failure: {e}");
+      sentiment = {"error": "Sentiment analysis failed"}
     print(text, sentiment)
     return jsonify({"text": text, "sentiment": sentiment})
   except MemoryError:
