@@ -55,7 +55,7 @@
       background-color: grey;
       cursor: default;
     }
-    #transcript{
+    .display{
       margin-top: 1.5rem;
       padding: 1rem;
       border: 1px solid darkgrey;
@@ -66,10 +66,10 @@
       white-space: pre-wrap;
       text-align: left;
     }
-    #transcript.loading{
+    .display.loading{
       color: lightgrey;
     }
-    #transcript.error{
+    .display.error{
       color: red;
     }
   </style>
@@ -82,12 +82,14 @@
       <input type="file" name="file" accept="audio/*" required />
       <button type="submit">Transcribe</button>
     </form>
-    <div id="transcript">Transcript shows here.</div>
+    <div class="display" id="transcript">Transcript shows here.</div>
+    <div class="display" id="sentiment">Sentiment shows here</div>
   </div>
   
 <script>
     const audioUpload = document.getElementById("audioUpload");
     const transcript = document.getElementById("transcript");
+    const sentiment = document.getElementById("sentiment");
     const button = document.getElementsByTagName("button")[0];
     audioUpload.addEventListener("submit", async (a) => {
       a.preventDefault();
@@ -100,6 +102,8 @@
       }
       transcript.className = "loading";
       transcript.textContent = "Transcribing...";
+      sentiment.className = "loading";
+      sentiment.textContent = "Analyzing...";
       button.disabled = true;
       const audioData = new FormData(audioUpload);
       console.log("Printing form data:");
@@ -127,6 +131,8 @@
         }
         transcript.className = "";
         transcript.textContent = trnscrData.text;
+        sentiment.className = "";
+        sentiment.textContent = trnscrData.sentiment;
       }
       catch(err){
         console.error("Error during transcription: ", err.message);
