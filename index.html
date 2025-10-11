@@ -66,11 +66,27 @@
       white-space: pre-wrap;
       text-align: left;
     }
-    .display.loading{
+    .displayLoading{
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border: 1px solid darkgrey;
+      border-radius: 8px;
+      background-color: white;
       color: lightgrey;
+      min-height: 80px;
+      white-space: pre-wrap;
+      text-align: left;
     }
-    .display.error{
+    .displayError{
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border: 1px solid darkgrey;
+      border-radius: 8px;
+      background-color: white;
       color: red;
+      min-height: 80px;
+      white-space: pre-wrap;
+      text-align: left;
     }
   </style>
 </head>
@@ -100,9 +116,9 @@
         transcript.textContent = `File too large (max accepted size: ${maxSizeMB} MB)`;
         return;
       }
-      transcript.className = "loading";
+      transcript.className = "displayLoading";
       transcript.textContent = "Transcribing...";
-      sentiment.className = "loading";
+      sentiment.className = "displayLoading";
       sentiment.textContent = "Analyzing...";
       button.disabled = true;
       const audioData = new FormData(audioUpload);
@@ -129,16 +145,16 @@
         if(!trnscrData.text){
           throw new Error("No transcription recieved");
         }
-        transcript.className = "";
+        transcript.className = "display";
         transcript.textContent = trnscrData.text;
-        sentiment.className = "";
+        sentiment.className = "display";
         sentiment.textContent = trnscrData.sentiment;
       }
       catch(err){
         console.error("Error during transcription: ", err.message);
-        transcript.className = "error";
+        transcript.className = "displayError";
         transcript.textContent = `${err.message || "Unknown error"}`;
-        sentiment.className = "error";
+        sentiment.className = "displayError";
         sentiment.textContent = `${err.message || "Unknown error"}`;
       }
       button.disabled = false;
