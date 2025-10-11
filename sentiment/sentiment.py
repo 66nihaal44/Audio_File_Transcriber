@@ -3,6 +3,7 @@ from flask_cors import CORS
 import requests, tempfile, os
 app = Flask(__name__)
 CORS(app)
+print("Reached sentiment.py", flush=True)
 HF_API_TOKEN = os.getenv("HF_API_TOKEN")
 @app.route("/analyze", methods=["POST"])
 def analyze_sentiment():
