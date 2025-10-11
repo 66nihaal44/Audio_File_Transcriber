@@ -34,7 +34,7 @@ def transcribe():
       sentiment = sentimentResponse.json()
     except requests.exceptions.RequestException as e:
       print("Sentiment analysis request failure: ", e, flush=True);
-      sentiment = {"error": "Sentiment analysis failed", flush}
+      sentiment = {"error": "Sentiment analysis failed"}
     except Exception as e:
       print("Sentiment analysis failure: ", e);
       sentiment = {"error": "Sentiment analysis failed"}
