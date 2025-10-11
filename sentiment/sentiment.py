@@ -7,6 +7,7 @@ HF_API_TOKEN = os.getenv("HF_API_TOKEN")
 @app.route("/analyze", methods=["POST"])
 def analyze_sentiment():
   if "file" not in request.files:
+    print("No file recieved", flush=True);
     return jsonify({"error": "No file uploaded"}), 400
   print("Files recieved: ", request.files, flush=True);
   try:
