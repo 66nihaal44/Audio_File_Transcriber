@@ -31,7 +31,7 @@ def transcribe():
       )
       sentiment = sentimentResponse.json()
     except Exception as e:
-      print("Sentiment analysis failure: {e}");
+      print("Sentiment analysis failure: ", e);
       sentiment = {"error": "Sentiment analysis failed"}
     print(text, sentiment, flush=True)
     return jsonify({"text": text, "sentiment": sentiment})
