@@ -138,6 +138,8 @@
         console.error("Error during transcription: ", err.message);
         transcript.className = "error";
         transcript.textContent = `${err.message || "Unknown error"}`;
+        sentiment.className = "error";
+        sentiment.textContent = `${err.message || "Unknown error"}`;
       }
       button.disabled = false;
     });
