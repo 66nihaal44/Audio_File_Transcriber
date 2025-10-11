@@ -28,8 +28,13 @@ def transcribe():
         "https://audio-file-transcriber-sentiment.onrender.com/analyze",
         headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
         json={"text": text}
+        timeout=(5, 60)
       )
+      print("Sentiment analysis status: ", sentimentResponse.status_code, flush=True)
       sentiment = sentimentResponse.json()
+    except requests.exceptions.RequestException as e:
+      print("Sentiment analysis request failure: ", e);
+      sentiment = {"error": "Sentiment analysis failed"}
     except Exception as e:
       print("Sentiment analysis failure: ", e);
       sentiment = {"error": "Sentiment analysis failed"}
