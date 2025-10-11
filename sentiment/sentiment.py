@@ -8,7 +8,7 @@ HF_API_TOKEN = os.getenv("HF_API_TOKEN")
 def analyze_sentiment():
   if "file" not in request.files:
     return jsonify({"error": "No file uploaded"}), 400
-  print("Files recieved: ", request.files);
+  print("Files recieved: ", request.files, flush=True);
   try:
     file = request.files["file"]
     with tempfile.NamedTemporaryFile(delete=False) as tmp:
