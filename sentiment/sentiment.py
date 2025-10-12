@@ -19,8 +19,7 @@ def analyze_sentiment():
       headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
       json={"inputs": text})
   except Exception as e:
-    result["label"] = "Error"
-    result["score"] = "0"
+    result = {"label": "Error", "score": 0}
   return {
     "label": result["label"],
     "score": round(result["score"], 3)
