@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import requests, tempfile, os
+import requests, os
 app = Flask(__name__)
 CORS(app)
 print("Reached sentiment.py", flush=True)
@@ -14,12 +14,10 @@ def analyze_sentiment():
   text = data["text"]
   print("Text recieved: ", text, flush=True);
   try:
-    with tempfile.NamedTemporaryFile(delete=False) as tmp:
-      text.save(tmp.name)
-      result = requests.post(
-        "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
-        headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
-        json={"inputs": tmp.name})
+    result = requests.post(
+      "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
+      headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
+      json={"inputs": text})
   except Exception as e:
     result["label"] = "Error"
     result["score"] = "0"
