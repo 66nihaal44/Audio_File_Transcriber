@@ -9,7 +9,7 @@ HF_API_TOKEN = os.getenv('HF_API_TOKEN')
 def analyze_sentiment():
   print("Reached /analyze", flush=True)
   try:
-    data = request.get_json(force=True, silent=False)
+    data = request.get_json(force=True, silent=False) # .get_json() or .json
   except Exception as e:
     return jsonify({"error": "Bad json", "detail": e}), 400
   if not data or "text" not in data:
@@ -18,12 +18,15 @@ def analyze_sentiment():
   text = data["text"]
   print("Text recieved: ", text, flush=True);
   try:
-    result = requests.post(
+    response = requests.post(
       "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
       headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
       json={"inputs": text})
+    print("Response status code: ", response.status_code)
+    result = response.json[0][0]
   except Exception as e:
     result = {"label": "Error", "score": 0}
+  print("Analysis result: ", result)
   return {
     "label": result["label"],
     "score": round(result["score"], 3)
