@@ -22,11 +22,11 @@ def analyze_sentiment():
       "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
       headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
       json={"inputs": text})
-    print("Response status code: ", response.status_code)
-    print("Response status code: ", response.text[:500])
+    print("Response status code: ", response.status_code, flush=True)
+    print("Response text: ", response.text[:500], flush=True)
     result = response.json[0][0]
   except Exception as e:
-    print("Sentiment analysis error: ", e)
+    print("Sentiment analysis error: ", e, flush=True)
     result = {"label": "Error", "score": 0}
   print("Analysis result: ", result)
   return {
