@@ -1,3 +1,4 @@
 Link at [Audio_File_Transcriber](https://66nihaal44.github.io/Audio_File_Transcriber/index)<br>
 Uses faster-whisper python module<br>
-Plan: Add sentiment analysis
+Plan: Add sentiment analysis<br>
+Note: use json or get_json
