@@ -26,6 +26,7 @@ def transcribe():
     try:
       sentimentResponse = requests.post(
         "https://audio-file-transcriber-sentiment.onrender.com/analyze",
+        headers={"Content-Type": "application/json"},
         json={"text": text},
         timeout=(5, 60)
       )
