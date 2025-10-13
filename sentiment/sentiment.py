@@ -7,7 +7,11 @@ print("Reached sentiment.py", flush=True)
 HF_API_TOKEN = os.getenv('HF_API_TOKEN')
 @app.route("/analyze", methods=["POST"])
 def analyze_sentiment():
-  data = request.get_json()
+  print("Reached /analyze", flush=True)
+  try:
+    data = request.get_json(force=True, silent=False)
+  except Exception as e:
+    return jsonify({"error": "Bad json", "detail": e}), 400
   if not data or "text" not in data:
     print("No json recieved", flush=True);
     return jsonify({"error": "No json uploaded"}), 400
