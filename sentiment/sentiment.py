@@ -25,7 +25,6 @@ def analyze_sentiment():
       json={"inputs": text})
     print("Response status code: ", response.status_code, flush=True)
     print("Response text: ", response.text[:500], flush=True)
-    print("Raw response: ", response.text[:300], flush=True)
     result = response.json()[0][0]
   except Exception as e:
     print("Sentiment analysis error: ", e, flush=True)
