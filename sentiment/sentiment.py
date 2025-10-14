@@ -13,10 +13,10 @@ def analyze_sentiment():
   except Exception as e:
     return jsonify({"error": "Bad json", "detail": e}), 400
   if not data or "text" not in data:
-    print("No json recieved", flush=True);
+    print("No json recieved", flush=True)
     return jsonify({"error": "No json uploaded"}), 400
   text = data["text"]
-  print("Text recieved: ", text, flush=True);
+  print("Text recieved: ", text, flush=True)
   try:
     print((HF_API_TOKEN or "None")[:10], flush=True)
     response = requests.post(
