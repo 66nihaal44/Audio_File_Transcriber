@@ -147,6 +147,9 @@
         }
         transcript.className = "display";
         transcript.textContent = trnscrData.text;
+        console.log(trnscrData.sentiment & "failed Sentiment");
+        console.log(trnscrData.sentiment.result & "failed Sentiment result");
+        console.log(trnscrData.sentiment.label & "failed Sentiment label");
         sentiment.className = "display";
         sentiment.textContent = trnscrData.sentiment;
       }
