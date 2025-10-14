@@ -18,7 +18,7 @@ def analyze_sentiment():
   text = data["text"]
   print("Text recieved: ", text, flush=True);
   try:
-    print(HF_API_TOKEN, flush=True)
+    print((HF_API_TOKEN OR "None")[:10], flush=True)
     response = requests.post(
       "https://router.huggingface.co/hf-inference/models/distilbert-base-uncased-finetuned-sst-2-english",
       headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
