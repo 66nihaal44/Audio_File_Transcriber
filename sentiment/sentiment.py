@@ -20,7 +20,7 @@ def analyze_sentiment():
   try:
     print((HF_API_TOKEN or "None")[:10], flush=True)
     response = requests.post(
-      "https://router.huggingface.co/hf-inference/models/distilbert-base-uncased-finetuned-sst-2-english",
+      "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
       headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
       json={"inputs": text})
     print("Response status code: ", response.status_code, flush=True)
