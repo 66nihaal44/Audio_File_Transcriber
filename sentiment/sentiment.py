@@ -20,7 +20,7 @@ def analyze_sentiment():
   try:
     print((HF_API_TOKEN or "None")[:10], flush=True)
     try:
-      ping = requests.get(https://api-inference.huggingface.co, timeout=5)
+      ping = requests.get("https://api-inference.huggingface.co", timeout=5)
       print("Ping status: ", ping.status_code, flush=True)
     except Exception as E:
       print("Ping failed: ", e, flush=True)
