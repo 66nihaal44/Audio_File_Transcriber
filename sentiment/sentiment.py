@@ -26,7 +26,8 @@ def analyze_sentiment():
       print("Ping failed: ", e, flush=True)
     response = requests.post(
       "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
-      headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
+      headers={"Authorization": f"Bearer {HF_API_TOKEN}",
+              "Content-Type": "application/json"},
       json={"inputs": text})
     print("Response status code: ", response.status_code, flush=True)
     print("Response text: ", response.text[:500], flush=True)
