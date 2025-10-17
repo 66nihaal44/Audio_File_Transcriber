@@ -24,7 +24,7 @@ def analyze_sentiment():
     try:
       #ping = requests.get("https://api-inference.huggingface.co", timeout=5)
       ping = requests.get("https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
-                          headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
+                          headers={"Authorization": f"Bearer {HF_API_TOKEN}"}
       )
       print("Ping status: ", ping.status_code, flush=True)
       print("Ping text: ", ping.text, flush=True)
