@@ -19,16 +19,23 @@ def analyze_sentiment():
   print("Text recieved: ", text, flush=True)
   try:
     print((HF_API_TOKEN or "None")[:10], flush=True)
+    print("Token: ", repr(HF_API_TOKEN), flush=True)
+    print("Token length: ", len(HF_API_TOKEN), flush=True)
     try:
-      ping = requests.get("https://api-inference.huggingface.co", timeout=5)
+      #ping = requests.get("https://api-inference.huggingface.co", timeout=5)
+      ping = requests.get("https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
+                          headers={"Authorization": f"Bearer {HF_API_TOKEN}"},
+      )
       print("Ping status: ", ping.status_code, flush=True)
+      print("Ping text: ", ping.text, flush=True)
     except Exception as E:
       print("Ping failed: ", e, flush=True)
     response = requests.post(
       "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
       headers={"Authorization": f"Bearer {HF_API_TOKEN}",
               "Content-Type": "application/json"},
-      json={"inputs": text})
+      json={"inputs": text}
+    )
     print("Response status code: ", response.status_code, flush=True)
     print("Response text: ", response.text[:500], flush=True)
     result = response.json()[0][0]
