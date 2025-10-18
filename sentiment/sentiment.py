@@ -28,7 +28,7 @@ def analyze_sentiment():
       )
       print("Ping status: ", ping.status_code, flush=True)
       print("Ping text: ", ping.text, flush=True)
-    except Exception as E:
+    except Exception as e:
       print("Ping failed: ", e, flush=True)
     response = requests.post(
       "https://router.huggingface.co/hf-inference/models/distilbert-base-uncased-finetuned-sst-2-english",
