@@ -21,8 +21,10 @@ def analyze_sentiment():
     print((HF_API_TOKEN or "None")[:10], flush=True)
     print("Token: ", repr(HF_API_TOKEN), flush=True)
     print("Token length: ", len(HF_API_TOKEN), flush=True)
+    test = requests.get("https://api-inference.huggingface.co")
+    print("Test status: ", test.status_code, flush=True)
+    print("Test text: ", test.text, flush=True)
     try:
-      #ping = requests.get("https://api-inference.huggingface.co", timeout=5)
       ping = requests.get("https://router.huggingface.co/hf-inference/models/distilbert-base-uncased-finetuned-sst-2-english",
                           headers={"Authorization": f"Bearer {HF_API_TOKEN}"}
       )
