@@ -33,7 +33,7 @@ def analyze_sentiment():
     except Exception as e:
       print("Ping failed: ", e, flush=True)
     response = requests.post(
-      "https://router.huggingface.co/hf-inference/models/distilbert-base-uncased-finetuned-sst-2-english",
+      "https://ap-Inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
       headers={"Authorization": f"Bearer {HF_API_TOKEN}",
               "Content-Type": "application/json"},
       json={"inputs": text}
