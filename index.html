@@ -26,9 +26,6 @@
       margin-bottom: 1.5rem;
       color: blue;
     }
-    p{
-      color: blue;
-    }
     form{
       display: flex;
       flex-direction: column;
@@ -92,6 +89,9 @@
       white-space: pre-wrap;
       text-align: left;
     }
+    progress{
+      transition: value 0.5s;
+    }
   </style>
 </head>
 <body>
@@ -103,7 +103,6 @@
     </form>
     <div class="display" id="transcript">Transcript shows here.</div>
     <div class="display" id="sentiment">Sentiment shows here</div>
-    <p>Sentiment Bar</p>
     <progress value="0" max="1"></progress>
   </div>
   
