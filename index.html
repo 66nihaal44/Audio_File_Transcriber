@@ -106,9 +106,9 @@
       <button type="submit">Transcribe</button>
     </form>
     <div class="display" id="transcript">Transcript shows here.</div>
-    <div class="display" id="sentiment">
+    <div class="display" id="sentimentBox">
       <p id="sentLabel">Label: </p>
-      Sentiment shows here
+      <p id="sentiment">Sentiment shows here</p>
       <progress id="confidenceBar" value="0" max="1"></progress>
     </div>
   </div>
@@ -131,7 +131,7 @@
       }
       transcript.className = "displayLoading";
       transcript.textContent = "Transcribing...";
-      sentiment.className = "displayLoading";
+      sentimentBox.className = "displayLoading";
       sentiment.textContent = "Analyzing...";
       button.disabled = true;
       const audioData = new FormData(audioUpload);
@@ -164,7 +164,7 @@
         console.log(trnscrData.sentiment.result & "failed Sentiment result");
         console.log(trnscrData.sentiment.label & "failed Sentiment label");
         sentLabel.style.display = "inline";
-        sentiment.className = "display";
+        sentimentBox.className = "display";
         sentiment.textContent = trnscrData.sentiment.label === "POSITIVE" ? "Positive" : 
                                 trnscrData.sentiment.label === "NEGATIVE" ? "Negative" :
                                 "Neutral";
@@ -174,7 +174,7 @@
         console.error("Error during transcription: ", err.message);
         transcript.className = "displayError";
         transcript.textContent = `${err.message || "Unknown error"}`;
-        sentiment.className = "displayError";
+        sentimentBox.className = "displayError";
         sentiment.textContent = `${err.message || "Unknown error"}`;
       }
       button.disabled = false;
