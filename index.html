@@ -161,7 +161,9 @@
         console.log(trnscrData.sentiment.label & "failed Sentiment label");
         sentLabel.style.display = "inline";
         sentiment.className = "display";
-        sentiment.textContent = trnscrData.sentiment.label;
+        sentiment.textContent = trnscrData.sentiment.label === "POSITIVE" ? "Positive" : 
+                                trnscrData.sentiment.label === "NEGATIVE" ? "Negative" :
+                                "Neutral";
         confidenceBar.value = trnscrData.sentiment.score;
       }
       catch(err){
