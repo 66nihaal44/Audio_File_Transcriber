@@ -89,6 +89,9 @@
       white-space: pre-wrap;
       text-align: left;
     }
+    #sentLabel{
+      color: black;
+    }
     progress{
       transition: value 0.5s;
     }
@@ -102,15 +105,17 @@
       <button type="submit">Transcribe</button>
     </form>
     <div class="display" id="transcript">Transcript shows here.</div>
-    <div class="display" id="sentiment">Sentiment shows here</div>
-    <progress value="0" max="1"></progress>
+    <div class="display" id="sentiment"><p id="sentLabel">Label: </p>Sentiment shows here</div>
+    <progress id="confidenceBar" value="0" max="1"></progress>
   </div>
   
 <script>
     const audioUpload = document.getElementById("audioUpload");
     const transcript = document.getElementById("transcript");
     const sentiment = document.getElementById("sentiment");
+    const sentLabel = document.getElementById("sentLabel");
     const button = document.getElementsByTagName("button")[0];
+    sentLabel.style.display = "none";
     audioUpload.addEventListener("submit", async (a) => {
       a.preventDefault();
       const fileInput = document.querySelector('input[type="file"]');
@@ -141,7 +146,7 @@
             backendData = await res.json();
           }
           catch{
-            backendData = {}
+            backendData = {};
           }
           throw new Error(backendData.error || `HTTP error ${res.status}`);
         }
@@ -154,8 +159,10 @@
         console.log(trnscrData.sentiment & "failed Sentiment");
         console.log(trnscrData.sentiment.result & "failed Sentiment result");
         console.log(trnscrData.sentiment.label & "failed Sentiment label");
+        sentLabel.style.display = "inline";
         sentiment.className = "display";
-        sentiment.textContent = `Label: ${trnscrData.sentiment.label}, Score: ${trnscrData.sentiment.score}`;
+        sentiment.textContent = trnscrData.sentiment.label;
+        confidenceBar.value = trnscrData.sentiment.score;
       }
       catch(err){
         console.error("Error during transcription: ", err.message);
