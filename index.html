@@ -118,7 +118,8 @@
         <p id="sentLabel">Label: </p>
         <p id="sentiment" style="display:inline;text-align:left;">Sentiment shows here</p>
       </div>
-      <progress id="confidenceBar" value="0" max="1"></progress>
+      <progress id="cnfdnBar" value="0" max="1"></progress>
+      <span id="cnfdnPrcnt">0%</span>
     </div>
   </div>
   
@@ -127,8 +128,11 @@
     const transcript = document.getElementById("transcript");
     const sentiment = document.getElementById("sentiment");
     const sentLabel = document.getElementById("sentLabel");
+    const cnfdnBar = document.getElementById("cnfdnBar");
+    const cnfdnPrcnt = document.getElementById("cnfdnPrcnt");
     const button = document.getElementsByTagName("button")[0];
     sentLabel.style.display = "none";
+    cnfdnPrcnt.style.display = "none";
     audioUpload.addEventListener("submit", async (a) => {
       a.preventDefault();
       const fileInput = document.querySelector('input[type="file"]');
@@ -178,6 +182,7 @@
                                 trnscrData.sentiment.label === "NEGATIVE" ? "Negative" :
                                 "Neutral";
         confidenceBar.value = trnscrData.sentiment.score;
+        cnfdnPrcnt.textContent = `${(trnscrData.sentiment.score * 100).toFixed(1)}%`;
       }
       catch(err){
         console.error("Error during transcription: ", err.message);
