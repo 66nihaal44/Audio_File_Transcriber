@@ -181,7 +181,7 @@
         sentiment.textContent = trnscrData.sentiment.label === "POSITIVE" ? "Positive" : 
                                 trnscrData.sentiment.label === "NEGATIVE" ? "Negative" :
                                 "Neutral";
-        confidenceBar.value = trnscrData.sentiment.score;
+        cnfdnBar.value = trnscrData.sentiment.score;
         cnfdnPrcnt.textContent = `${(trnscrData.sentiment.score * 100).toFixed(1)}%`;
       }
       catch(err){
