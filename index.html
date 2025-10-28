@@ -183,6 +183,7 @@
                                 "Neutral";
         cnfdnBar.value = trnscrData.sentiment.score;
         cnfdnPrcnt.textContent = `${(trnscrData.sentiment.score * 100).toFixed(1)}%`;
+        cnfdnPrcnt.style.display = "inline";
       }
       catch(err){
         console.error("Error during transcription: ", err.message);
