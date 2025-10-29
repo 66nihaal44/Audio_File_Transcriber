@@ -201,6 +201,10 @@
         cnfdnBar.value = trnscrData.sentiment.score;
         cnfdnPrcnt.textContent = `${(trnscrData.sentiment.score * 100).toFixed(1)}% confidence`;
         cnfdnPrcnt.style.display = "inline";
+        const colorBar = trnscrData.sentiment.label === "POSITIVE" ? "green" : 
+                                trnscrData.sentiment.label === "NEGATIVE" ? "red" :
+                                "blue";
+        cnfdnPrcnt.style.background = colorBar;
       }
       catch(err){
         console.error("Error during transcription: ", err.message);
