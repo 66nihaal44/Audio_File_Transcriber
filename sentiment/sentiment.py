@@ -36,7 +36,8 @@ def analyze_sentiment():
       "https://router.huggingface.co/hf-inference/models/distilbert/distilbert-base-uncased-finetuned-sst-2-english",
       headers={"Authorization": f"Bearer {HF_API_TOKEN}",
               "Content-Type": "application/json"},
-      json={"inputs": text}
+      json={"inputs": text},
+      timeout=60
     )
     print("Response status code: ", response.status_code, flush=True)
     print("Response text: ", response.text[:500], flush=True)
