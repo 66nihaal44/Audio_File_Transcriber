@@ -22,6 +22,7 @@ def transcribe():
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
       file.save(tmp.name)
       segments, info = model.transcribe(tmp.name, beam_size=5, language="en")
+    print("info: ", info, flush=True)
     text = " ".join([segment.text for segment in segments])
     try:
       sentimentResponse = requests.post(
