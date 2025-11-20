@@ -32,7 +32,6 @@ def transcribe():
         #timeout=(5, 60)
       )
       print("Sentiment analysis status: ", sentimentResponse.status_code, flush=True)
-      print("Sentiment data: ", sentimentResponse.data, flush=True)
       sentiment = sentimentResponse.json()
     except requests.exceptions.RequestException as e:
       print("Sentiment analysis request failure: ", e, flush=True);
