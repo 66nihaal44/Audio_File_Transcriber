@@ -165,6 +165,8 @@
       sentimentBox.className = "displayLoading";
       sentiment.textContent = "Analyzing...";
       button.disabled = true;
+      cnfdnPrcnt.style.display = "none";
+      cnfdnBar.value = "0";
       const audioData = new FormData(audioUpload);
       console.log("Printing form data:");
       for(let [key, value] of audioData.entries()){
