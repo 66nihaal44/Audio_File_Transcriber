@@ -191,6 +191,7 @@
         if(!trnscrData.text){
           throw new Error("No transcription recieved");
         }
+        console.log("response: ", trnscrData);
         transcript.className = "display";
         transcript.textContent = trnscrData.text;
         console.log(trnscrData.sentiment & "failed Sentiment");
