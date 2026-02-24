@@ -24,7 +24,8 @@ def transcribe():
       segments, info = model.transcribe(tmp.name, beam_size=5, language="en")
     print("info: ", info, flush=True)
     text = " ".join([segment.text for segment in segments])
-    try:
+    
+    """try:
       sentimentResponse = requests.post(
         "https://audio-file-transcriber-sentiment.onrender.com/analyze",
         headers={"Content-Type": "application/json"},
@@ -38,7 +39,25 @@ def transcribe():
       sentiment = {"error": "Sentiment analysis failed"}
     except Exception as e:
       print("Sentiment analysis failure: ", e);
-      sentiment = {"error": "Sentiment analysis failed"}
+      sentiment = {"error": "Sentiment analysis failed"}"""
+    try:
+      print((HF_API_TOKEN or "None")[:10], flush=True)
+      print("Token: ", repr(HF_API_TOKEN), flush=True)
+      print("Token length: ", len(HF_API_TOKEN), flush=True)
+      response = requests.post(
+        "https://router.huggingface.co/hf-inference/models/distilbert/distilbert-base-uncased-finetuned-sst-2-english",
+        headers={"Authorization": f"Bearer {HF_API_TOKEN}",
+                "Content-Type": "application/json"},
+        json={"inputs": text},
+        timeout=60
+      )
+      print("Response status code: ", response.status_code, flush=True)
+      print("Response text: ", response.text[:500], flush=True)
+      sentiment = response.json()[0][0]
+    except Exception as e:
+      print("Sentiment analysis error: ", e, flush=True)
+      sentiment = {"label": "Error", "score": 0}
+    print("Analysis result: ", result, flush=True)
     print(text, sentiment, flush=True)
     return jsonify({"text": text, "sentiment": sentiment})
   except MemoryError:
