@@ -194,9 +194,9 @@
         console.log("response: ", trnscrData);
         transcript.className = "display";
         transcript.textContent = trnscrData.text;
-        console.log(trnscrData.sentiment & "failed Sentiment");
-        console.log(trnscrData.sentiment.result & "failed Sentiment result");
-        console.log(trnscrData.sentiment.label & "failed Sentiment label");
+        console.log(trnscrData.sentiment ?? "failed Sentiment");
+        console.log(trnscrData.sentiment.result ?? "failed Sentiment result");
+        console.log(trnscrData.sentiment.label ?? "failed Sentiment label");
         sentLabel.style.display = "inline";
         sentimentBox.className = "display";
         sentiment.textContent = trnscrData.sentiment.label === "POSITIVE" ? "Positive" : 
