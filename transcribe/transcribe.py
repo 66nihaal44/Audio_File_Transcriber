@@ -17,7 +17,8 @@ def transcribe():
   print("Files recieved: ", request.files, flush=True);
   try:
     file = request.files["file"]
-    if len(file.read()) > 5 * 1024 * 1024:
+    file.seek(0, os.SEEK_END)
+    if file.tell() > 5 * 1024 * 1024:
       return jsonify({"error": "File too large"}), 400
     file.seek(0);
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
@@ -58,7 +59,7 @@ def transcribe():
     except Exception as e:
       print("Sentiment analysis error: ", e, flush=True)
       sentiment = {"label": "Error", "score": 0}
-    print("Analysis result: ", result, flush=True)
+    print("Analysis result: ", sentiment, flush=True)
     print(text, sentiment, flush=True)
     return jsonify({"text": text, "sentiment": sentiment})
   except MemoryError:
