@@ -26,6 +26,7 @@ def transcribe():
       segments, info = model.transcribe(tmp.name, beam_size=5, language="en")
     print("info: ", info, flush=True)
     text = " ".join([segment.text for segment in segments])
+    return jsonify({"text": text})
     
     """try:
       sentimentResponse = requests.post(
@@ -42,7 +43,8 @@ def transcribe():
     except Exception as e:
       print("Sentiment analysis failure: ", e);
       sentiment = {"error": "Sentiment analysis failed"}"""
-    try:
+    
+    """try:
       print((HF_API_TOKEN or "None")[:10], flush=True)
       print("Token: ", repr(HF_API_TOKEN), flush=True)
       print("Token length: ", len(HF_API_TOKEN), flush=True)
@@ -66,7 +68,7 @@ def transcribe():
     return jsonify({"error": "Server ran out of memory."}), 500
   except Exception as e:
     print("Backend Error: ", e, flush=True)
-    return jsonify({"error": "Unexpected backend error"}), 500
+    return jsonify({"error": "Unexpected backend error"}), 500"""
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5000))
   app.run(host="0.0.0.0", port=port)
