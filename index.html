@@ -173,6 +173,7 @@
       for(let [key, value] of audioData.entries()){
         console.log(key, value);
       }
+      let text;
       try {
         const res = await fetch("https://audio-file-transcriber-python.onrender.com/transcribe", {
           method: "POST",
@@ -195,34 +196,50 @@
         console.log("response: ", trnscrData);
         transcript.className = "display";
         transcript.textContent = trnscrData.text;
+        text = trnscrData.text;
       }
       catch(err){
         console.error("Error during transcription: ", err.message);
         transcript.className = "displayError";
-      }/*
-        console.log(trnscrData.sentiment ?? "failed Sentiment");
-        console.log(trnscrData.sentiment.result ?? "failed Sentiment result");
-        console.log(trnscrData.sentiment.label ?? "failed Sentiment label");
-        sentLabel.style.display = "inline";
-        sentimentBox.className = "display";
-        sentiment.textContent = trnscrData.sentiment.label === "POSITIVE" ? "Positive" : 
-                                trnscrData.sentiment.label === "NEGATIVE" ? "Negative" :
-                                "Neutral";
-        cnfdnBar.value = trnscrData.sentiment.score;
-        cnfdnPrcnt.textContent = `${(trnscrData.sentiment.score * 100).toFixed(1)}% confidence`;
-        cnfdnPrcnt.style.display = "inline";
-        const colorBar = trnscrData.sentiment.label === "POSITIVE" ? "green" : 
-                                trnscrData.sentiment.label === "NEGATIVE" ? "red" :
-                                "blue";
-        cnfdnPrcnt.style.background = colorBar;
+      }
+      try {
+        const res = await fetch("https://audio-file-transcriber-python.onrender.com/transcribe", {
+          method: "POST",
+          body: text
+        });
+        if(!res.ok){
+          var backend;
+          try{
+            backendData = await res.json();
+          }
+          catch{
+            backendData = {};
+          }
+          throw new Error(backendData.error || `HTTP error ${res.status}`);
+        }
+      }
+      const sntData = await res.json();
+      console.log(sntData ?? "failed Sentiment");
+      console.log(sntData.result ?? "failed Sentiment result");
+      console.log(sntData.label ?? "failed Sentiment label");
+      sentLabel.style.display = "inline";
+      sentimentBox.className = "display";
+      sentiment.textContent = sntData.label === "POSITIVE" ? "Positive" : 
+                              sntData.label === "NEGATIVE" ? "Negative" :
+                              "Neutral";
+      cnfdnBar.value = sntData.score;
+      cnfdnPrcnt.textContent = `${(sntData.score * 100).toFixed(1)}% confidence`;
+      cnfdnPrcnt.style.display = "inline";
+      const colorBar = sntData.label === "POSITIVE" ? "green" : 
+                              sntData.label === "NEGATIVE" ? "red" :
+                              "blue";
+      cnfdnPrcnt.style.background = colorBar;
       }
       catch(err){
-        console.error("Error during transcription: ", err.message);
-        transcript.className = "displayError";
-        transcript.textContent = `${err.message || "Unknown error"}`;
+        console.error("Error during analysis: ", err.message);
         sentimentBox.className = "displayError";
         sentiment.textContent = `${err.message || "Unknown error"}`;
-      }*/
+      }
       button.disabled = false;
     });
   </script>
