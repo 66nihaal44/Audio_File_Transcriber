@@ -62,12 +62,14 @@ def transcribe():
       sentiment = {"label": "Error", "score": 0}
     print("Analysis result: ", sentiment, flush=True)
     print(text, sentiment, flush=True)
-    return jsonify({"text": text, "sentiment": sentiment})
+    return jsonify({"text": text, "sentiment": sentiment})"""
+
+  
   except MemoryError:
     return jsonify({"error": "Server ran out of memory."}), 500
   except Exception as e:
     print("Backend Error: ", e, flush=True)
-    return jsonify({"error": "Unexpected backend error"}), 500"""
+    return jsonify({"error": "Unexpected backend error"}), 500
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5000))
   app.run(host="0.0.0.0", port=port)
