@@ -195,6 +195,11 @@
         console.log("response: ", trnscrData);
         transcript.className = "display";
         transcript.textContent = trnscrData.text;
+      }
+      catch(err){
+        console.error("Error during transcription: ", err.message);
+        transcript.className = "displayError";
+      }/*
         console.log(trnscrData.sentiment ?? "failed Sentiment");
         console.log(trnscrData.sentiment.result ?? "failed Sentiment result");
         console.log(trnscrData.sentiment.label ?? "failed Sentiment label");
@@ -217,7 +222,7 @@
         transcript.textContent = `${err.message || "Unknown error"}`;
         sentimentBox.className = "displayError";
         sentiment.textContent = `${err.message || "Unknown error"}`;
-      }
+      }*/
       button.disabled = false;
     });
   </script>
