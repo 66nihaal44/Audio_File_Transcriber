@@ -203,7 +203,7 @@
         transcript.className = "displayError";
       }
       try {
-        const res = await fetch("https://audio-file-transcriber-python.onrender.com/transcribe", {
+        const res = await fetch("https://audio-file-transcriber-python.onrender.com/analyze", {
           method: "POST",
           body: text
         });
