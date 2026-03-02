@@ -217,23 +217,22 @@
           }
           throw new Error(backendData.error || `HTTP error ${res.status}`);
         }
-      }
-      const sntData = await res.json();
-      console.log(sntData ?? "failed Sentiment");
-      console.log(sntData.result ?? "failed Sentiment result");
-      console.log(sntData.label ?? "failed Sentiment label");
-      sentLabel.style.display = "inline";
-      sentimentBox.className = "display";
-      sentiment.textContent = sntData.label === "POSITIVE" ? "Positive" : 
-                              sntData.label === "NEGATIVE" ? "Negative" :
-                              "Neutral";
-      cnfdnBar.value = sntData.score;
-      cnfdnPrcnt.textContent = `${(sntData.score * 100).toFixed(1)}% confidence`;
-      cnfdnPrcnt.style.display = "inline";
-      const colorBar = sntData.label === "POSITIVE" ? "green" : 
-                              sntData.label === "NEGATIVE" ? "red" :
-                              "blue";
-      cnfdnPrcnt.style.background = colorBar;
+        const sntData = await res.json();
+        console.log(sntData ?? "failed Sentiment");
+        console.log(sntData.result ?? "failed Sentiment result");
+        console.log(sntData.label ?? "failed Sentiment label");
+        sentLabel.style.display = "inline";
+        sentimentBox.className = "display";
+        sentiment.textContent = sntData.label === "POSITIVE" ? "Positive" : 
+                                sntData.label === "NEGATIVE" ? "Negative" :
+                                "Neutral";
+        cnfdnBar.value = sntData.score;
+        cnfdnPrcnt.textContent = `${(sntData.score * 100).toFixed(1)}% confidence`;
+        cnfdnPrcnt.style.display = "inline";
+        const colorBar = sntData.label === "POSITIVE" ? "green" : 
+                                sntData.label === "NEGATIVE" ? "red" :
+                                "blue";
+        cnfdnPrcnt.style.background = colorBar;
       }
       catch(err){
         console.error("Error during analysis: ", err.message);
