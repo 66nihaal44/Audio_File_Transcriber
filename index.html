@@ -173,7 +173,7 @@
       for(let [key, value] of audioData.entries()){
         console.log(key, value);
       }
-      let text;
+      let textJSON;
       try {
         const res = await fetch("https://audio-file-transcriber-python.onrender.com/transcribe", {
           method: "POST",
@@ -196,7 +196,7 @@
         console.log("response: ", trnscrData);
         transcript.className = "display";
         transcript.textContent = trnscrData.text;
-        text = trnscrData.text;
+        textJSON = JSON.stringify(trnscrData.text);
       }
       catch(err){
         console.error("Error during transcription: ", err.message);
@@ -205,7 +205,8 @@
       try {
         const res = await fetch("https://audio-file-transcriber-sentiment.onrender.com/analyze", {
           method: "POST",
-          body: text
+          headers: { "Content-Type": "application/json" },
+          body: textJSON
         });
         if(!res.ok){
           var backend;
