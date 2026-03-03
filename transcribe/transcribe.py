@@ -17,7 +17,7 @@ def transcribe():
   try:
     file = request.files["file"]
     file.seek(0, os.SEEK_END)
-    if file.tell() > 5 * 1024 * 1024:
+    if file.tell() > 2 * 1024 * 1024:
       return jsonify({"error": "File too large"}), 400
     file.seek(0);
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
