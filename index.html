@@ -139,7 +139,6 @@
       <span id="cnfdnPrcnt" style="display:inline;">0%</span>
     </div>
     <p>Note: First use in a session may cause some delay.</p>
-    <p>Currently updating.</p>
   </div>
   
 <script>
@@ -170,7 +169,7 @@
       cnfdnBar.value = "0";
       const audioData = new FormData(audioUpload);
       console.log("Printing form data:");
-      for(let [key, value] of audioData.entries()){
+      for(let [key, value] of audioData){
         console.log(key, value);
       }
       let textForSnt;
