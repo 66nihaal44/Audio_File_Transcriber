@@ -18,8 +18,6 @@ def analyze_sentiment():
   text = data["text"]
   print("Text recieved: ", text, flush=True)
   try:
-    print((HF_API_TOKEN or "None")[:10], flush=True)
-    print("Token: ", repr(HF_API_TOKEN), flush=True)
     print("Token length: ", len(HF_API_TOKEN), flush=True)
     test = requests.get("https://api-inference.huggingface.co")
     print("Test status: ", test.status_code, flush=True)
