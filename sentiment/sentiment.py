@@ -22,14 +22,16 @@ def analyze_sentiment():
     test = requests.get("https://api-inference.huggingface.co")
     print("Test status: ", test.status_code, flush=True)
     print("Test text: ", test.text[:50], flush=True)
-    try:
+    
+    """try:
       ping = requests.get("https://router.huggingface.co/hf-inference/models/distilbert/distilbert-base-uncased-finetuned-sst-2-english",
                           headers={"Authorization": f"Bearer {HF_API_TOKEN}"}
       )
       print("Ping status: ", ping.status_code, flush=True)
       print("Ping text: ", ping.text, flush=True)
     except Exception as e:
-      print("Ping failed: ", e, flush=True)
+      print("Ping failed: ", e, flush=True)"""
+      
     response = requests.post(
       "https://router.huggingface.co/hf-inference/models/distilbert/distilbert-base-uncased-finetuned-sst-2-english",
       headers={"Authorization": f"Bearer {HF_API_TOKEN}",
