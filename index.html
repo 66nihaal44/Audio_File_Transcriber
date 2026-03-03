@@ -204,7 +204,6 @@
       try {
         const res = await fetch("https://audio-file-transcriber-sentiment.onrender.com/analyze", {
           method: "POST",
-          //headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text: textForSnt })
         });
         if(!res.ok){
@@ -219,7 +218,6 @@
         }
         const sntData = await res.json();
         console.log(sntData ?? "failed Sentiment");
-        //console.log(sntData.result ?? "failed Sentiment result");
         console.log(sntData.label ?? "failed Sentiment label");
         sentLabel.style.display = "inline";
         sentimentBox.className = "display";
